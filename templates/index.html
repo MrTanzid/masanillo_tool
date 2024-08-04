@@ -1,1 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BPS Money Management By Mr.T</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>BPS Money Management By Mr.T</h1>
+        <div class="summary">
+            <form action="/set_initial_capital" method="post">
+                <label for="initial_capital">Initial Capital:</label>
+                <input type="number" step="0.01" name="initial_capital" id="initial_capital" value="{{ initial_capital }}" required>
+                <button type="submit">Set Initial Capital</button>
+            </form>
+            <p>Total Trades: {{ total_trades }}</p>
+            <p>Current Capital: {{ current_capital }}</p>
+            <p>Current Risk Amount: {{ risk_amount }}</p>
+        </div>
+        <form action="/submit_trade" method="post">
+            <label for="result">Trade Result (W/L):</label>
+            <select name="result" id="result">
+                <option value="Win">Win</option>
+                <option value="Loss">Loss</option>
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+        <form action="/reset" method="get">
+            <button type="submit">Reset all</button>
+        </form>
+        <div class="trades">
+            <h2>Trading System</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Trade Result</th>
+                        <th>Trade Amount</th>
+                        <th>Profit/Loss</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trade in trades %}
+                    <tr>
+                        <td>{{ trade.result }}</td>
+                        <td>{{ trade.amount }}</td>
+                        <td>{{ trade.profit_loss }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
 
